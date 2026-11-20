@@ -1,0 +1,23 @@
+name: CI - Testes EscalaCerta
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+          working-directory: bkp/EscalaCerta-backend   # ajuste se a pasta tiver outro nome
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - run: npm install
+
+      - name: Rodar todos os testes com cobertura
+        run: npm run test:cobertura
+        env:
+          JWT_SECRET: segredo-de-teste-com-mais-de-16-chars
